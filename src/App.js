@@ -5,6 +5,9 @@ import './App.css';
 import MiComponente from './components/MiComponente';
 import Peliculas from './components/Peliculas';
 import Header from './components/Header';
+import Slider from './components/Slider';
+import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 
 function HolaMundo(nombre){
   var presentacion =<h2>hola, soy {nombre}</h2>
@@ -14,21 +17,27 @@ function HolaMundo(nombre){
 function App() {
   var nombre="Leonardo Mercado";
   return (
-    <div className="App">
-    <Header />
-      <header className="App-header">
+  <div className="App">
+  <Header />
+  <Slider />
+    <div className="center">
+      <section id="content">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Editar en:  <code>src/App.js</code> and save to reload.
         </p>
         {HolaMundo(nombre)}
-      <section className="componentes">
-        <MiComponente></MiComponente>
-        <Peliculas/>
+        <section className="componentes">
+          <MiComponente></MiComponente>
+          <Peliculas/>
+        </section>
       </section>
-        
-      </header>
-    </div>
+      <Sidebar />
+
+    </div>{/* END DIV CENTER*/}
+    <div className="clearfix"></div>
+    <Footer></Footer>
+  </div>
   );
 }
 
