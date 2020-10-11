@@ -10,10 +10,13 @@ import SeccionPruebas from './components/SeccionPruebas';
 
 
 function App() {
+  var buttonString="Ir al blog";
   return (
   <div className="App">
   <Header />
-  <Slider />
+  <Slider title="Bienvenido al Curso de React con Leonardo Mercado"
+    btn= {buttonString}
+  />
     <div className="center">
       
       <SeccionPruebas />

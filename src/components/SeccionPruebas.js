@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import MiComponente from './MiComponente';
-import Peliculas from './Peliculas';
 
 class SeccionPruebas extends Component{
 
     contador =0;
 
-    constructor(props){
-        super(props);
-        this.state = {
-            contador: 0
-        };
-    }
+    state ={
+        contador: 0
+    };
+
     HolaMundo(nombre){
         var presentacion =<h2>hola, soy {nombre}</h2>
         return presentacion;
@@ -49,7 +46,6 @@ class SeccionPruebas extends Component{
 
             <section className="componentes">
             <MiComponente></MiComponente>
-            <Peliculas/>
             </section>
             <h2 className="subheader"> Estados </h2>
             <p>Contador:  {this.state.contador}</p>
