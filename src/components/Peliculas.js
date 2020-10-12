@@ -39,12 +39,18 @@ class Peliculas extends Component{
                 <p>Seleccion de las peliculas favoritas de {this.state.nombre}</p>
                 <p><button onClick={this.cambiarTitulo}> Cambiar titulo de batman</button></p>
                 
-                {this.state.favorita.titulo && //esto es una condicion en jsx like if()
+                {/*la condiciones en jsx se hacen colocando entre llaves la
+                sentencia booleana y se coloca && al final para entenderse como
+                un condicional. tambien se puede con un signo ? y entre parentesis
+                para usar un else */}
+                {this.state.favorita.titulo ? ( //this.state.favorita.titulo && //esto es una condicion en jsx like if()
                 
                 <p style={pStayle} className="favorita">
                     <strong>La pelicula favorita es:</strong>
                     <span>{this.state.favorita.titulo}</span>
-                </p>
+                </p>):(
+                    <p>No hay pelicula favorita</p>
+                )
                 }
 
                 <div id="articles" className="peliculas">
