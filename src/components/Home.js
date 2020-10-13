@@ -5,9 +5,10 @@ import Slider from './Slider'
 class Home extends Component{
     render(){
         return (
-            <React.Fragment>
+            <div id="home">
             <Slider title="Bienvenido al Curso de React con Leonardo Mercado"
                 btn='Ir al blog'
+                size="slider-big"
             />
             <div className="center">
 
@@ -16,7 +17,7 @@ class Home extends Component{
                 </div>
                 <Sidebar />
             </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

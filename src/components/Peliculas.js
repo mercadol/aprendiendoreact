@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Pelicula from './Pelicula';
+import Sidebar from './Sidebar';
+import Slider from './Slider';
 
 class Peliculas extends Component{
     state={
@@ -34,8 +36,13 @@ class Peliculas extends Component{
             padding: '10px'
         };
         return (
+            <React.Fragment>
+            <Slider title="Peliculas"
+                size="slider-small"
+            />
+            <div className="center">
             <div id="content" className="peliculas">
-                <h2 className="subheader">Peliculas</h2>
+                <h2 className="subheader">Listado de peliculas</h2>
                 <p>Seleccion de las peliculas favoritas de {this.state.nombre}</p>
                 <p><button onClick={this.cambiarTitulo}> Cambiar titulo de batman</button></p>
                 
@@ -67,6 +74,10 @@ class Peliculas extends Component{
                     }
                 </div>
             </div>
+            <Sidebar
+                blog="false" />
+            </div>
+            </React.Fragment>
         );
     }
 }
