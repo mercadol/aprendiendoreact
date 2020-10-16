@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
+
 import Axios from 'axios';
+import 'moment/locale/es';
+import Moment from 'react-moment';
 import Global from '../Global'
 import ImageDefault from '../assets/images/download.jpg'
+import { Link } from 'react-router-dom';
+
 
 class Articles extends Component{
     url= Global.url;
@@ -11,8 +16,48 @@ class Articles extends Component{
     };
 
     componentWillMount(){
-        this.getArticles();
+        var home=this.props.home;
+        var search=this.props.search;
+        if(home=== 'true'){
+            this.getLastArticles();
+        }else if(search && search != null && search != undefined){
+            
+            this.getArticlesBySearch(search);
+            
+        }else{
+            this.getArticles();
+        }
+        
     }
+
+    getArticlesBySearch=(buscado)=>{
+        Axios.get(this.url+"search/"+buscado)
+            .then(res=>{
+                if(res.data.articles){
+                    this.setState({
+                        articles: res.data.articles,
+                        status:'success'
+                    });
+                }else{
+                    this.setState({
+                        articles: res.data.articles,
+                        status:'failed'
+                    });
+                }
+                
+            });
+    }
+
+    getLastArticles=()=>{
+        Axios.get(this.url+"articles/last")
+            .then(res=>{
+                this.setState({
+                    articles: res.data.articles,
+                    status:'success'
+                });
+            });
+    }
+
     getArticles=()=>{
         Axios.get(this.url+"articles")
             .then(res=>{
@@ -20,7 +65,6 @@ class Articles extends Component{
                     articles: res.data.articles,
                     status:'success'
                 });
-                console.log(this.state);
             });
     }
     render(){
@@ -41,9 +85,11 @@ class Articles extends Component{
     
                         <h2>{article.title}</h2>
                         <span className="date">
-                            {article.date}
+                            <Moment locale="es" fromNow>
+                                {article.date}
+                            </Moment>
                         </span>
-                        Leer más
+                        <Link to={'/blog/articulo/'+article._id}>Leer más</Link>
 
                         <div className="clearfix"></div>
                     </article>

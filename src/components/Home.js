@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Articles from './Articles';
 import Sidebar from './Sidebar';
 import Slider from './Slider'
 
@@ -14,6 +15,9 @@ class Home extends Component{
 
                 <div id="content">
                     <h1 className="subheader">Últimos Artículos</h1>
+                    <Articles 
+                        home='true'
+                    />
                 </div>
                 <Sidebar />
             </div>
