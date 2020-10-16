@@ -33,19 +33,17 @@ class Articles extends Component{
     getArticlesBySearch=(buscado)=>{
         Axios.get(this.url+"search/"+buscado)
             .then(res=>{
-                if(res.data.articles){
-                    this.setState({
-                        articles: res.data.articles,
-                        status:'success'
-                    });
-                }else{
-                    this.setState({
-                        articles: res.data.articles,
-                        status:'failed'
-                    });
-                }
-                
-            });
+                this.setState({
+                    articles: res.data.articles,
+                    status:'success'
+                });
+            })
+            .catch(err=>{
+                this.setState({
+                    articles: [],
+                    status:'success'
+                });                
+            })
     }
 
     getLastArticles=()=>{
@@ -102,7 +100,7 @@ class Articles extends Component{
                     {listArticles}
                 </div>
             );
-        }else if(this.state.articles.length && this.state.status==='success'){
+        }else if(this.state.articles.length==0 && this.state.status==='success'){
             return(
                 <div id="articles">
                     <h1 className="subheader">NO HAY ARTICULOS PARA MOSTRAR</h1>
