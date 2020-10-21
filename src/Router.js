@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 //Importar componentes
 import Error from './components/Error';
 import MiComponente from './components/MiComponente';
@@ -27,6 +27,13 @@ class Router extends Component{
                     <Route exact path="/blog" component={Blog}/>
                     <Route exact path="/blog/articulo/:id" component={Article}/>
                     <Route exact path="/blog/busqueda/:search" component={Search}/>
+                    <Route exact path="/redirect/:search" render={
+                        (props)=>{
+                            var search =props.match.params.search;
+                            return(<Redirect to={'/blog/busqueda/'+search}/>);
+                        }
+                    } />
+
                     <Route exact path="/formulario" component={Formulario}/>
                     <Route exact path="/peliculas" component={Peliculas}/>
 

@@ -20,7 +20,7 @@ class Articles extends Component{
         var search=this.props.search;
         if(home=== 'true'){
             this.getLastArticles();
-        }else if(search && search != null && search != undefined){
+        }else if(search && search !== null && search !== undefined){
             
             this.getArticlesBySearch(search);
             
@@ -100,7 +100,7 @@ class Articles extends Component{
                     {listArticles}
                 </div>
             );
-        }else if(this.state.articles.length==0 && this.state.status==='success'){
+        }else if(this.state.articles.length===0 && this.state.status==='success'){
             return(
                 <div id="articles">
                     <h1 className="subheader">NO HAY ARTICULOS PARA MOSTRAR</h1>
