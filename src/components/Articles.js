@@ -67,9 +67,9 @@ class Articles extends Component{
     }
     render(){
         if(this.state.articles.length>=1){
-            var listArticles= this.state.articles.map((article, i) =>{
+            var listArticles= this.state.articles.map((article) =>{
                 return(
-                    <article className="article-item" key={i} id="article-template">
+                    <article className="article-item" key={article._id} id="article-template">
                         <div className="image-wrap">
                         {
                             article.image !== null ? (

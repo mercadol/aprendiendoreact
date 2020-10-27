@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Sidebar extends Component{
     searchRef = React.createRef();
@@ -27,6 +27,7 @@ class Sidebar extends Component{
             {this.props.blog==="true" &&
                 <div id="nav-blog" className="sidebar-item">
                     <h3>Puedes hacer esto</h3>
+                    <Link to={'/blog/crear'} className="btn btn-success">Crear Artículo</Link>
                 </div>
             }
 

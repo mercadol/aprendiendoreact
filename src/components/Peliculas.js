@@ -23,7 +23,6 @@ class Peliculas extends Component{
     }
 
     favorita =(pelicula, indice)=>{
-        console.log(pelicula, indice);
         this.setState({
             favorita: pelicula
         });

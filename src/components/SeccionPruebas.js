@@ -15,15 +15,11 @@ class SeccionPruebas extends Component{
     }
 
     sumar=(e)=>{
-        //this.contador= this.contador+1;
-        //this.state.contador= this.state.contador+1;
         this.setState({
             contador: (this.state.contador+1)
         })
     }
     restar=(e)=>{
-        //this.contador= this.contador-1;
-        //this.state.contador= this.state.contador-1;
         this.setState({
             contador: (this.state.contador-1)
         })

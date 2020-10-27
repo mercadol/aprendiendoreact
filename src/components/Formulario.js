@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Sidebar from './Sidebar';
-//import Slider from './Slider';
-
 
 class Formulario extends Component{
 
