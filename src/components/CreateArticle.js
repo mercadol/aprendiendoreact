@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Global from '../Global';
 import Axios from 'axios';
+import SimpleReactValidator from 'simple-react-validator';
 
 //validacion formularios y alertas aqui
 class CreateArticle extends Component{
@@ -16,6 +17,10 @@ class CreateArticle extends Component{
         status: null
     };
 
+    componentWillMount(){
+        this.validator = new SimpleReactValidator();
+    }
+
     changeState= ()=>{
         this.setState({
             article: {
@@ -28,56 +33,67 @@ class CreateArticle extends Component{
 
     saveArticle=(e)=>{
         e.preventDefault();
+        
         this.changeState();
-        //hacer una peticion http por post para guardar con axios
-        Axios.post(this.url+'save',this.state.article)
-            .then(res=>{
-                if(res.data.article){
-                    this.setState({
-                        article: res.data.article,
-                        status: 'waiting'
-                    });
-
-                    //subir la imagen si existe
-                    if(this.state.selectedFile !== null){
-                        // Sacar id del articulo
-                        var articleId= this.state.article._id;
-
-                        //Crear form data y añadir fichero
-                        const formData= new FormData();
-
-                        formData.append(
-                            'file0',
-                            this.state.selectedFile,
-                            this.state.selectedFile.name
-                        );
-
-                        // Peticion http
-                        Axios.post(this.url+'upload-image/'+articleId, formData)
-                            .then(res => {
-                                if(res.data.article){
-                                    this.setState({
-                                        article: res.data.article,
-                                        status: 'success'
-                                    });
-                                }else{
-                                    this.setState({
-                                        article: res.data.article,
-                                        status: 'failed'
-                                    });
-                                }
+        if(this.validator.allValid()){
+            
+            //hacer una peticion http por post para guardar con axios
+            Axios.post(this.url+'save',this.state.article)
+                .then(res=>{
+                    if(res.data.article){
+                        this.setState({
+                            article: res.data.article,
+                            status: 'waiting'
+                        });
+    
+                        //subir la imagen si existe
+                        if(this.state.selectedFile !== null){
+                            // Sacar id del articulo
+                            var articleId= this.state.article._id;
+    
+                            //Crear form data y añadir fichero
+                            const formData= new FormData();
+    
+                            formData.append(
+                                'file0',
+                                this.state.selectedFile,
+                                this.state.selectedFile.name
+                            );
+    
+                            // Peticion http
+                            Axios.post(this.url+'upload-image/'+articleId, formData)
+                                .then(res => {
+                                    if(res.data.article){
+                                        this.setState({
+                                            article: res.data.article,
+                                            status: 'success'
+                                        });
+                                    }else{
+                                        this.setState({
+                                            article: res.data.article,
+                                            status: 'failed'
+                                        });
+                                    }
+                                });
+                        }else{
+                            this.setState({
+                                status: 'success'
                             });
+                        }
                     }else{
                         this.setState({
-                            status: 'success'
+                            status: 'failed'
                         });
                     }
-                }else{
-                    this.setState({
-                        status: 'failed'
-                    });
-                }
-            })
+                });
+        }else{
+            this.setState({
+                status: 'failed'
+            });
+
+            this.validator.showMessages();
+            this.forceUpdate();
+        }
     }
 
     fileChange =(event)=>{
@@ -101,6 +117,8 @@ class CreateArticle extends Component{
                     <div className="form-group">
                             <label htmlFor="title"> Titulo</label>
                             <input type="text" name="title" ref={this.titleRef} onChange={this.changeState} ></input>
+                            
+                            {this.validator.message('title', this.state.article.title, 'Required|alpha')}
                         </div>
                         <div className="form-group">
                             <label htmlFor="content"> Contenido</label>
