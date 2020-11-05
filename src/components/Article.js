@@ -5,6 +5,7 @@ import Axios from 'axios';
 import ImageDefault from '../assets/images/download.jpg'
 import 'moment/locale/es';
 import Moment from 'react-moment';
+import { Link, Redirect } from 'react-router-dom';
 
 class Article extends Component{
     url= Global.url;
@@ -33,7 +34,20 @@ class Article extends Component{
                 })
             });
     }
+    deleteArticle= (id)=>{
+        Axios.delete(this.url+ 'article/'+id)
+        .then(res=>{
+            this.setState({
+                article:res.data.article,
+                status:'deleted'
+            });
+        });
+    }
     render(){
+        if(this.state.status==='deleted'){
+            return <Redirect to="/blog" />
+        }
+
         var article= this.state.article;
         return(
             <div className="center">
@@ -57,7 +71,12 @@ class Article extends Component{
                         <p>
                             {article.content}
                         </p>
-                        btn Editar/ btn Eliminar
+                        <button onClick={
+                            ()=>{
+                                this.deleteArticle(article._id)
+                            }
+                        } className="btn btn-danger">Eliminar</button> 
+                        <Link to={'/blog/editar/'+article._id} className="btn btn-danger">Editar</Link> 
                         <div className="clearfix"></div>
                     </article>
                 }
